@@ -29,6 +29,7 @@ SectionList = []  # Sections to clean. If empty all sections will be looked at, 
 IgnoreSections = []  # Sections to skip cleaning, for use when Settings['SectionList'] is not specified, the same as SectionList, the section id should be used here
 LogFile = ""  # Location of log file to save console output
 LogFileMode = "overwrite"  # File Mode for logging, overwrite or append, default is overwrite
+LogLevel = 10 #Level for Logging, default is debug, 10=DEBUG 20=INFO 30=WARNING 40=ERROR 50=CRITICAL
 trigger_rescan = False  # trigger_rescan will rescan a section if changes are made to it
 EmailLog = False  # Email the log file contents at conclusion of script
 EmailServer = ""  # Email Server (for Gmail, use smtp.gmail.com)
@@ -346,6 +347,7 @@ def LoadSettings(opts):
     s['IgnoreSections'] = opts.get('IgnoreSections', IgnoreSections)
     s['LogFile'] = opts.get('LogFile', LogFile)
     s['LogFileMode'] = opts.get('LogFileMode', LogFileMode)
+    s['LogLevel'] = opts.get('LogLevel', LogLevel)
     s['trigger_rescan'] = opts.get('trigger_rescan', trigger_rescan)
     s['EmailLog'] = opts.get('EmailLog', EmailLog)
     s['EmailServer'] = opts.get('EmailServer', EmailServer)
@@ -1105,7 +1107,7 @@ if __name__ == "__main__":
         filemode = "w"
         if Settings.get("LogFileMode").startswith("a"):
             filemode = "a"
-        logging.basicConfig(filename=Settings['LogFile'], filemode=filemode, level=logging.DEBUG)
+        logging.basicConfig(filename=Settings['LogFile'], filemode=filemode, level=Settings['LogLevel'])
         logging.captureWarnings(True)
 
     log("** Script started " + time.strftime("%m-%d-%Y %I:%M:%S%p"))

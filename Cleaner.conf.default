@@ -6,6 +6,7 @@
   "IgnoreSections": [],
   "LogFile": "",
   "LogFileMode": "",
+  "LogLevel": 10,
   "trigger_rescan": false,
   "EmailLog": false,
   "EmailServer": "",
